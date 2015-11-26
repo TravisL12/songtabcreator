@@ -10,7 +10,8 @@
 angular.module('songtabcreatorApp')
   .controller('MainCtrl', function ($scope) {
     $scope.name = 'Schuyler';
-	$scope.last = 'Lawrence';
+	  $scope.last = 'Lawrence';
+    $scope.showName = false;
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

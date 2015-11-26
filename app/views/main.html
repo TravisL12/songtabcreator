@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <h1 ng-hide='showName'>{{name}} {{last}}</h1>
-  <h3 ng-repeat='duh in awesomeThings'>{{duh}}</h3>
+  <h3 ng-repeat='duh in awesomeThings'>{{multipleWord(duh,7)}}</h3>
   
-  <button class='btn btn-primary' ng-click='showName = !showName'>Show/Hide Name</button>  
+  <button class='btn btn-default' ng-click='showName = !showName'>Show/Hide Name</button>  
 </div>

@@ -9,6 +9,7 @@
  */
 angular.module('songtabcreatorApp')
   .controller('MainCtrl', function ($scope) {
+
     $scope.name = 'Schuyler';
 	  $scope.last = 'Lawrence';
     $scope.showName = false;
@@ -20,4 +21,14 @@ angular.module('songtabcreatorApp')
       'bpp,',
       'yaya'
     ];
+
+    $scope.multipleWord = function(word, multiple) {
+      var finalWords = [];
+      multiple = multiple || 2;
+      for (var i = 0; i < multiple; i++) {
+        finalWords.push(word);
+      }
+
+      return finalWords.join(' ');
+    };
   });

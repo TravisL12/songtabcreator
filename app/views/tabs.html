@@ -1,27 +1,40 @@
 <div class='tabs'>
   <div class='editor'>
-    <div class='chord-columns' ng-repeat='column in buildArray(45)'>
+
+    <ul class='row-names'>
+      <li>Chord</li>
+      <li>e</li>
+      <li>b</li>
+      <li>g</li>
+      <li>d</li>
+      <li>a</li>
+      <li>E</li>
+    </ul>
+
+    <div class='chord-columns' ng-repeat='column in buildArray(50)'>
       <ul class='chord'>
-        <li class='chord-name'><input type='text' ng-model='cells["chords"+column]' placeholder='chord'></li>
-        <li class='e-string'><input type='text' ng-model='cells["e"+column]' placeholder='e'></li>
-        <li class='b-string'><input type='text' ng-model='cells["b"+column]' placeholder='b'></li>
-        <li class='g-string'><input type='text' ng-model='cells["g"+column]' placeholder='g'></li>
-        <li class='d-string'><input type='text' ng-model='cells["d"+column]' placeholder='d'></li>
-        <li class='a-string'><input type='text' ng-model='cells["a"+column]' placeholder='a'></li>
-        <li class='E-string'><input type='text' ng-model='cells["E"+column]' placeholder='E'></li>
+        <li class='chord-name'><input type='text' ng-model='cells["chords"+column]'></li>
+        <li class='e-string'><input type='text' ng-model='cells["e"+column]'></li>
+        <li class='b-string'><input type='text' ng-model='cells["b"+column]'></li>
+        <li class='g-string'><input type='text' ng-model='cells["g"+column]'></li>
+        <li class='d-string'><input type='text' ng-model='cells["d"+column]'></li>
+        <li class='a-string'><input type='text' ng-model='cells["a"+column]'></li>
+        <li class='E-string'><input type='text' ng-model='cells["E"+column]'></li>
       </ul>
     </div>
   </div>
 
   <div class='tab-view'>
-    <ul>
-      <li class='chord-name'>{{tabs.chord}}</li>
-      <li class='e-string'>{{tabs.e}}</li>
-      <li class='b-string'>{{tabs.b}}</li>
-      <li class='g-string'>{{tabs.g}}</li>
-      <li class='d-string'>{{tabs.d}}</li>
-      <li class='a-string'>{{tabs.a}}</li>
-      <li class='E-string'>{{tabs.E}}</li>
-    </ul>
+    <div class='chord-columns' ng-repeat='column in buildArray(50)'>
+      <ul class='chord'>
+        <li class='chord-name'>{{cells['chords'+column] || '&nbsp'}}</li>
+        <li class='e-string'>{{ cells['e'+column] || '-' }}</li>
+        <li class='b-string'>{{ cells['b'+column] || '-' }}</li>
+        <li class='g-string'>{{ cells['g'+column] || '-' }}</li>
+        <li class='d-string'>{{ cells['d'+column] || '-' }}</li>
+        <li class='a-string'>{{ cells['a'+column] || '-' }}</li>
+        <li class='E-string'>{{ cells['E'+column] || '-' }}</li>
+      </ul>
+    </div>
   </div>
 </div>

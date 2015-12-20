@@ -10,4 +10,5 @@
 angular.module('songtabcreatorApp')
   .controller('TabCtrl', function ($scope, Chords) {
     $scope.Chords = Chords;
+    $scope.cells = {};
   });

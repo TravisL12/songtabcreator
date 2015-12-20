@@ -1,25 +1,51 @@
+$border-color: #fff;
+
 .tab-container {
   width: 1300px;
   margin: 0 auto;
   text-align: center;
 }
+.chord-columns, ul.chord, ul.row-names {
+  display: inline-block;
+}
+.tabs {
+  width: 95%;
+  overflow-y: auto;
+  white-space: nowrap;
+}
 .editor {
-  .chord-columns, ul.chord, ul.row-names {
-    display: inline-block;
-  }
-  ul.row-names li {
-    margin-bottom: 3px;
+  font-family: 'courier';
+  ul.row-names { 
+    vertical-align: top;
+    li {
+      margin-top: 3px;
+    }
   }
   .chord-columns {
-    &:last-child .chord li {
-      border-right: 1px solid #ddd; 
-    }
     .chord {
+      li:first-child input[type='text'] {
+        background: red;
+      }
+      &:hover li input[type='text'] {
+        background: pink; 
+      }
+      &:last-child li {
+        border-right: 1px solid $border-color; 
+      }
       li {
-        border-top: 1px solid #ddd;
-        border-left: 1px solid #ddd;
+        border-top: 1px solid $border-color;
+        border-left: 1px solid $border-color;
+        input[type='text'] {
+          background: lightblue;
+          &:focus {
+            background: yellow;
+          }
+        }
+        &:hover input[type='text'] {
+          background: yellow; 
+        }
         &:last-child {
-          border-bottom: 1px solid #ddd;
+          border-bottom: 1px solid $border-color;
         }
       }
       input[type='text'] {
@@ -31,7 +57,12 @@
 }
 
 .tab-view {
-  .chord-columns, ul.chord{
-    display: inline-block;
-  } 
+  font-family: 'courier';
+  text-align: left;
+  margin-left: 60px;
+  .chord-columns {
+    ul.chord li {
+      width: 25px;
+    }
+  }
 }

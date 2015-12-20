@@ -10,6 +10,7 @@
 angular.module('songtabcreatorApp')
   .controller('TabCtrl', function ($scope, Chords) {
     $scope.Chords = Chords;
+    $scope.columnCount = 110;
     $scope.cells = {};
     $scope.buildArray = function(num) {
       var a = new Array(num);

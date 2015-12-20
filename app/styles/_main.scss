@@ -8,11 +8,6 @@ $border-color: #fff;
 .chord-columns, ul.chord, ul.row-names {
   display: inline-block;
 }
-.tabs {
-  width: 95%;
-  overflow-y: auto;
-  white-space: nowrap;
-}
 .editor {
   font-family: 'courier';
   ul.row-names { 
@@ -22,9 +17,12 @@ $border-color: #fff;
     }
   }
   .chord-columns {
+    width: 95%;
+    overflow-y: auto;
+    white-space: nowrap;
     .chord {
       li:first-child input[type='text'] {
-        background: red;
+        background: cornflowerblue;
       }
       &:hover li input[type='text'] {
         background: pink; 
@@ -59,10 +57,11 @@ $border-color: #fff;
 .tab-view {
   font-family: 'courier';
   text-align: left;
-  margin-left: 60px;
-  .chord-columns {
-    ul.chord li {
-      width: 25px;
-    }
+  margin-left: 25px;
+  .row-names {
+    text-align: right;
+  }
+  ul.chord li {
+    width: 11px;
   }
 }

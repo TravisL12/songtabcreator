@@ -13,7 +13,7 @@
 
     <div class='chord-columns'>
       <ul class='chord' ng-repeat='column in buildArray(columnCount)'>
-        <li class='chord-name'><input type='text' ng-model='cells["chords"+column]'></li>
+        <li class='chord-name'><input ng-change='lookupChord()' type='text' ng-model='cells["chords"+column]'></li>
         <li class='e-string'><input type='text' ng-model='cells["e"+column]'></li>
         <li class='b-string'><input type='text' ng-model='cells["b"+column]'></li>
         <li class='g-string'><input type='text' ng-model='cells["g"+column]'></li>
@@ -25,16 +25,25 @@
   </div>
 
   <div class='tab-view'>
-    <div class='chord-columns'>
-      <ul class='chord' ng-repeat='column in buildArray(columnCount)'>
-        <li class='chord-name'>{{cells['chords'+column] || '&nbsp'}}</li>
-        <li class='e-string'>{{ cells['e'+column] || '-' }}</li>
-        <li class='b-string'>{{ cells['b'+column] || '-' }}</li>
-        <li class='g-string'>{{ cells['g'+column] || '-' }}</li>
-        <li class='d-string'>{{ cells['d'+column] || '-' }}</li>
-        <li class='a-string'>{{ cells['a'+column] || '-' }}</li>
-        <li class='E-string'>{{ cells['E'+column] || '-' }}</li>
-      </ul>
-    </div>
+
+    <ul class='row-names'>
+      <li>&nbsp</li>
+      <li>e |</li>
+      <li>b |</li>
+      <li>g |</li>
+      <li>d |</li>
+      <li>a |</li>
+      <li>E |</li>
+    </ul>
+
+    <ul class='chord' ng-repeat='column in buildArray(columnCount)'>
+      <li class='chord-name'>{{cells['chords'+column] || '&nbsp'}}</li>
+      <li class='e-string'>{{ cells['e'+column] || '-' }}</li>
+      <li class='b-string'>{{ cells['b'+column] || '-' }}</li>
+      <li class='g-string'>{{ cells['g'+column] || '-' }}</li>
+      <li class='d-string'>{{ cells['d'+column] || '-' }}</li>
+      <li class='a-string'>{{ cells['a'+column] || '-' }}</li>
+      <li class='E-string'>{{ cells['E'+column] || '-' }}</li>
+    </ul>
   </div>
 </div>

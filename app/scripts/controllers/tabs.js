@@ -13,6 +13,11 @@ angular.module('songtabcreatorApp')
     $scope.columnCount = 110;
     $scope.cells = {};
 
+    $scope.highlightView = function(color) {
+      var view = angular.element.find('.tab-view ul.chord')[this.column-1];
+      view.style.background = color;
+    };
+
     $scope.lookupChord = function() {
       var chord = this.cells['chords'+this.column];
       var matchedChord = Chords[chord];

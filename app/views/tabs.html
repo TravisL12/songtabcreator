@@ -1,3 +1,27 @@
 <div class='tabs'>
-  <p ng-repeat='chord in Chords'>{{chord.name}}: {{chord.tab}}</p>
+  <div class='editor'>
+    <form ng-model='tabs.tabs'>
+      <ul>
+        <li class='chord-name'><input type='text' ng-model='tabs.chord' placeholder='chord'></li>
+        <li class='e-string'><input type='text' ng-model='tabs.e' placeholder='e'></li>
+        <li class='b-string'><input type='text' ng-model='tabs.b' placeholder='b'></li>
+        <li class='g-string'><input type='text' ng-model='tabs.g' placeholder='g'></li>
+        <li class='d-string'><input type='text' ng-model='tabs.d' placeholder='d'></li>
+        <li class='a-string'><input type='text' ng-model='tabs.a' placeholder='a'></li>
+        <li class='E-string'><input type='text' ng-model='tabs.E' placeholder='E'></li>
+      </ul>
+    </form>
+  </div>
+
+  <div class='tab-view'>
+    <ul>
+      <li class='chord-name'>{{tabs.chord}}</li>
+      <li class='e-string'>{{tabs.e}}</li>
+      <li class='b-string'>{{tabs.b}}</li>
+      <li class='g-string'>{{tabs.g}}</li>
+      <li class='d-string'>{{tabs.d}}</li>
+      <li class='a-string'>{{tabs.a}}</li>
+      <li class='E-string'>{{tabs.E}}</li>
+    </ul>
+  </div>
 </div>

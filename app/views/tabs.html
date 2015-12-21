@@ -9,7 +9,7 @@
       <li>d</li>
       <li>a</li>
       <li>E</li>
-      <li>Words</li>
+      <li>Lyrics</li>
     </ul>
 
     <div class='chord-columns'>
@@ -28,7 +28,6 @@
   </div>
 
 
-
   <div class='tab-view'>
 
     <ul class='row-names'>
@@ -39,7 +38,6 @@
       <li>d |</li>
       <li>a |</li>
       <li>E |</li>
-      <li>&nbsp</li>
     </ul>
 
     <ul class='chord' ng-repeat='column in buildArray(columnCount)'>
@@ -52,5 +50,5 @@
       <li class='E-string'>{{ cells['E'+column] || '-' }}</li>
     </ul>
   </div>
-  <ul class='word'>{{ word['word'] || '&nbsp' }}</ul>
+  <ul class='word' >{{ word['word'] || '&nbsp' }}</ul>
 </div>

@@ -20,12 +20,14 @@
         <li class='g-string'><input type='text' ng-model='cells["g"+column]'></li>
         <li class='d-string'><input type='text' ng-model='cells["d"+column]'></li>
         <li class='a-string'><input type='text' ng-model='cells["a"+column]'></li>
-        <li class='E-string'><input type='text' ng-model='cells["E"+column]'></li>        
-        <li class='word'><input type='text' ng-model='cells["word"+column
-        ]'></li>        
+        <li class='E-string'><input type='text' ng-model='cells["E"+column]'></li>                        
       </ul>
-    </div>
+      <ul class='word'><input type='text' ng-model='word["word"
+        ]'></ul>
+    </div>   
   </div>
+
+
 
   <div class='tab-view'>
 
@@ -48,7 +50,7 @@
       <li class='d-string'>{{ cells['d'+column] || '-' }}</li>
       <li class='a-string'>{{ cells['a'+column] || '-' }}</li>
       <li class='E-string'>{{ cells['E'+column] || '-' }}</li>
-      <li class='word'>{{ cells['word'+column] || '&nbsp' }}</li>
     </ul>
   </div>
+  <ul class='word'>{{ word['word'] || '&nbsp' }}</ul>
 </div>

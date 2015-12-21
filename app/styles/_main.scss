@@ -3,9 +3,13 @@ $border-color: #fff;
 .tab-container {
   width: 1300px;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
 }
-.chord-columns, ul.chord, ul.row-names {
+.chord-columns, ul.chord {
+  display: inline-block;
+}
+ul.row-names { 
+  text-align: right;
   display: inline-block;
 }
 .editor {
@@ -57,11 +61,29 @@ $border-color: #fff;
 .tab-view {
   font-family: 'courier';
   text-align: left;
-  margin-left: 25px;
-  .row-names {
-    text-align: right;
-  }
-  ul.chord li {
-    width: 11px;
+  .chord-columns {
+    &.active-row {
+      background: aliceblue;
+      .lyrics input[type='text'] {
+        background: inherit;
+      }
+    }
+    &:hover {
+      background: azure;
+      cursor: pointer;
+      .lyrics input[type='text'] {
+        background: inherit;
+      }
+    }
+    .lyrics {
+      margin-left: 25px;
+      input[type='text'] {
+        width: 100%;
+      }
+    }
+    ul.chord {
+      min-width: 11px;
+      li { text-align: center; }
+    }
   }
 }

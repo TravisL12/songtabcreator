@@ -19,8 +19,9 @@ angular.module('songtabcreatorApp')
     };
 
     $scope.lookupChord = function() {
-      var chord = this.cells['chords'+this.column];
-      var matchedChord = Chords[chord];
+      // Capitalize the first letter of the chord
+      this.cells['chords'+this.column] = this.cells['chords'+this.column][0].toUpperCase() + this.cells['chords'+this.column].slice(1);
+      var matchedChord = Chords[this.cells['chords'+this.column]];
       if (matchedChord !== undefined) {
         this.cells['e'+this.column] = matchedChord[5];
         this.cells['b'+this.column] = matchedChord[4];

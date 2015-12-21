@@ -11,8 +11,9 @@ angular.module('songtabcreatorApp')
   .controller('TabCtrl', function ($scope, Chords) {
     $scope.Chords = Chords;
     $scope.columnCount = 110;
-    $scope.cells = {};
-    $scope.word = {};
+    $scope.tabRows = [
+      { cells: {}, lyrics: 'Lyrics go here!' }
+    ];
 
     $scope.highlightView = function(color) {
       var view = angular.element.find('.tab-view ul.chord')[this.column-1];
@@ -21,15 +22,15 @@ angular.module('songtabcreatorApp')
 
     $scope.lookupChord = function() {
       // Capitalize the first letter of the chord
-      this.cells['chords'+this.column] = this.cells['chords'+this.column][0].toUpperCase() + this.cells['chords'+this.column].slice(1);
-      var matchedChord = Chords[this.cells['chords'+this.column]];
+      this.row.cells['chords'+this.column] = this.row.cells['chords'+this.column][0].toUpperCase() + this.row.cells['chords'+this.column].slice(1);
+      var matchedChord = Chords[this.row.cells['chords'+this.column]];
       if (matchedChord !== undefined) {
-        this.cells['e'+this.column] = matchedChord[5];
-        this.cells['b'+this.column] = matchedChord[4];
-        this.cells['g'+this.column] = matchedChord[3];
-        this.cells['d'+this.column] = matchedChord[2];
-        this.cells['a'+this.column] = matchedChord[1];
-        this.cells['E'+this.column] = matchedChord[0];
+        this.row.cells['e'+this.column] = matchedChord[5];
+        this.row.cells['b'+this.column] = matchedChord[4];
+        this.row.cells['g'+this.column] = matchedChord[3];
+        this.row.cells['d'+this.column] = matchedChord[2];
+        this.row.cells['a'+this.column] = matchedChord[1];
+        this.row.cells['E'+this.column] = matchedChord[0];
       }
     };
 

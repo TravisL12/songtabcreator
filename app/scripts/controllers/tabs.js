@@ -15,22 +15,36 @@ angular.module('songtabcreatorApp')
       { cells: {}, lyrics: 'Lyrics go here!' }
     ];
 
+    function updateEditRow(index) {
+      $scope.editRow = $scope.tabRows[index];      
+    }
+    updateEditRow(0);
+
+    $scope.activeEditRow = function() {
+      updateEditRow(this.$index);
+    };
+
+    $scope.addTabRow = function() {
+      $scope.tabRows.push({ cells: {}, lyrics: 'Lyrics go here!' });
+      updateEditRow($scope.tabRows.length - 1);
+    };
+
     $scope.highlightView = function(color) {
-      var view = angular.element.find('.tab-view ul.chord')[this.column-1];
+      var view = angular.element.find('.tab-view .active-row ul.chord')[this.column-1];
       view.style.background = color;
     };
 
     $scope.lookupChord = function() {
       // Capitalize the first letter of the chord
-      this.row.cells['chords'+this.column] = this.row.cells['chords'+this.column][0].toUpperCase() + this.row.cells['chords'+this.column].slice(1);
-      var matchedChord = Chords[this.row.cells['chords'+this.column]];
+      $scope.editRow.cells['chords'+this.column] = $scope.editRow.cells['chords'+this.column][0].toUpperCase() + $scope.editRow.cells['chords'+this.column].slice(1);
+      var matchedChord = Chords[$scope.editRow.cells['chords'+this.column]];
       if (matchedChord !== undefined) {
-        this.row.cells['e'+this.column] = matchedChord[5];
-        this.row.cells['b'+this.column] = matchedChord[4];
-        this.row.cells['g'+this.column] = matchedChord[3];
-        this.row.cells['d'+this.column] = matchedChord[2];
-        this.row.cells['a'+this.column] = matchedChord[1];
-        this.row.cells['E'+this.column] = matchedChord[0];
+        $scope.editRow.cells['e'+this.column] = matchedChord[5];
+        $scope.editRow.cells['b'+this.column] = matchedChord[4];
+        $scope.editRow.cells['g'+this.column] = matchedChord[3];
+        $scope.editRow.cells['d'+this.column] = matchedChord[2];
+        $scope.editRow.cells['a'+this.column] = matchedChord[1];
+        $scope.editRow.cells['E'+this.column] = matchedChord[0];
       }
     };
 

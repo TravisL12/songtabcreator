@@ -62,8 +62,24 @@ ul.row-names {
   font-family: 'courier';
   text-align: left;
   .chord-columns {
-    .lyrics input[type='text'] {
-      width: 100%;
+    &.active-row {
+      background: aliceblue;
+      .lyrics input[type='text'] {
+        background: inherit;
+      }
+    }
+    &:hover {
+      background: azure;
+      cursor: pointer;
+      .lyrics input[type='text'] {
+        background: inherit;
+      }
+    }
+    .lyrics {
+      margin-left: 25px;
+      input[type='text'] {
+        width: 100%;
+      }
     }
     ul.chord {
       min-width: 11px;

@@ -80,11 +80,11 @@ angular.module('songtabcreatorApp')
         event.preventDefault();
 
         // Tab or right arrow pressed move 1 box to the right
-        if (code === 9 || code === 39) {
+        if ((code === 9 || code === 39) && index < $scope.columnCount) {
           angular.element.find('.editor input[name="' + guitarString + '-' + (index+1) + '"')[0].focus();
         }
         // Shift-Tab or left arrow pressed move 1 box to left
-        if ((event.shiftKey && code === 9) || code === 37) {
+        if (((event.shiftKey && code === 9) || code === 37) && index > 1) {
           angular.element.find('.editor input[name="' + guitarString + '-' + (index-1) + '"')[0].focus();
         }
         // Return or down arrow pressed move 1 box down

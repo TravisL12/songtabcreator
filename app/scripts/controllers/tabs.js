@@ -50,8 +50,8 @@ angular.module('songtabcreatorApp')
     };
 
     // Iterate through the strings
+    var strings = ['chords','e','b','g','d','a','E'];
     function downString(string) {
-      var strings = ['chords','e','b','g','d','a','E'];
       if (string !== 'E') {
         return strings[strings.indexOf(string) + 1];
       } else {
@@ -61,7 +61,6 @@ angular.module('songtabcreatorApp')
 
     // Iterate through the strings
     function upString(string) {
-      var strings = ['chords','e','b','g','d','a','E'];
       if (string !== 'chords') {
         return strings[strings.indexOf(string) - 1];
       } else {
@@ -70,14 +69,14 @@ angular.module('songtabcreatorApp')
     }
 
     $scope.navigateTab = function(event) {
-      var code   = event.keyCode;
-      var el     = event.target.name.split('-');
+      var code = event.keyCode;
+      var el = event.target.name.split('-');
       var guitarString = el[0];
-      var index  = parseInt(el[1]);
+      var index = parseInt(el[1]);
 
-      // Exclude tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
-      var excludeKeys = [9, 13, 37, 38, 39, 40];
-      if (excludeKeys.indexOf(code) !== -1) {
+      // Navigate by keyCodes: tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
+      var navKeyCodes = [9, 13, 37, 38, 39, 40];
+      if (navKeyCodes.indexOf(code) !== -1) {
         event.preventDefault();
 
         // Tab or right arrow pressed move 1 box to the right

@@ -93,3 +93,13 @@ ul.row-names {
     }
   }
 }
+
+.chord-dictionary {
+  .display-chord {
+    font-family: 'courier';
+    span.chord-name {
+      display: inline-block;
+      width: 60px;
+    }
+  }
+}

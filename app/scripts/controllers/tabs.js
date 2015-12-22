@@ -49,19 +49,70 @@ angular.module('songtabcreatorApp')
       view.style.background = color;
     };
 
+    // Iterate through the strings
+    var strings = ['chords','e','b','g','d','a','E'];
+    function downString(string) {
+      if (string !== 'E') {
+        return strings[strings.indexOf(string) + 1];
+      } else {
+        return string;
+      }
+    }
+
+    // Iterate through the strings
+    function upString(string) {
+      if (string !== 'chords') {
+        return strings[strings.indexOf(string) - 1];
+      } else {
+        return string;
+      }
+    }
+
+    $scope.navigateTab = function(event) {
+      var code = event.keyCode;
+      var el = event.target.name.split('-');
+      var guitarString = el[0];
+      var index = parseInt(el[1]);
+
+      // Navigate by keyCodes: tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
+      var navKeyCodes = [9, 13, 37, 38, 39, 40];
+      if (navKeyCodes.indexOf(code) !== -1) {
+        event.preventDefault();
+
+        // Tab or right arrow pressed move 1 box to the right
+        if (code === 9 || code === 39) {
+          angular.element.find('.editor input[name="' + guitarString + '-' + (index+1) + '"')[0].focus();
+        }
+        // Shift-Tab or left arrow pressed move 1 box to left
+        if ((event.shiftKey && code === 9) || code === 37) {
+          angular.element.find('.editor input[name="' + guitarString + '-' + (index-1) + '"')[0].focus();
+        }
+        // Return or down arrow pressed move 1 box down
+        if (code === 13 || code === 40) {
+          angular.element.find('.editor input[name="' + downString(guitarString) + '-' + index + '"')[0].focus();
+        }
+
+        // Shift-Return or up arrow pressed move 1 box up
+        if ((event.shiftKey && code === 13) || code === 38) {
+          angular.element.find('.editor input[name="' + upString(guitarString) + '-' + index + '"')[0].focus();
+        }
+
+      }
+    };
+
     // This is how we check if the entered Letter Chord matches inside of the Chord.js service.
     // Basically, we check the value entered and if we find a match we update the whole chord array
     $scope.lookupChord = function() {
       // Capitalize the first letter of the chord
-      $scope.editRow.cells['chords'+this.column] = $scope.editRow.cells['chords'+this.column][0].toUpperCase() + $scope.editRow.cells['chords'+this.column].slice(1);
-      var matchedChord = Chords[$scope.editRow.cells['chords'+this.column]];
+      $scope.editRow.cells['chords-'+this.column] = $scope.editRow.cells['chords-'+this.column][0].toUpperCase() + $scope.editRow.cells['chords-'+this.column].slice(1);
+      var matchedChord = Chords[$scope.editRow.cells['chords-'+this.column]];
       if (matchedChord !== undefined) {
-        $scope.editRow.cells['e'+this.column] = matchedChord[5];
-        $scope.editRow.cells['b'+this.column] = matchedChord[4];
-        $scope.editRow.cells['g'+this.column] = matchedChord[3];
-        $scope.editRow.cells['d'+this.column] = matchedChord[2];
-        $scope.editRow.cells['a'+this.column] = matchedChord[1];
-        $scope.editRow.cells['E'+this.column] = matchedChord[0];
+        $scope.editRow.cells['e-'+this.column] = matchedChord[5];
+        $scope.editRow.cells['b-'+this.column] = matchedChord[4];
+        $scope.editRow.cells['g-'+this.column] = matchedChord[3];
+        $scope.editRow.cells['d-'+this.column] = matchedChord[2];
+        $scope.editRow.cells['a-'+this.column] = matchedChord[1];
+        $scope.editRow.cells['E-'+this.column] = matchedChord[0];
       }
     };
 

@@ -23,6 +23,10 @@ angular
         templateUrl: 'views/tabs.html',
         controller: 'TabCtrl'
       })
+      .when('/chord_dictionary', {
+        templateUrl: 'views/chord_dictionary.html',
+        controller: 'ChordDictionaryCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

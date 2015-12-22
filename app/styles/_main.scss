@@ -67,29 +67,45 @@ ul.row-names {
   font-family: 'courier';
   text-align: left;
   .chord-columns {
-    &.active-row {
-      background: aliceblue;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    &.active-row .tablature{
+      background: azure;
+      border: 1px solid;
       .lyrics input[type='text'] {
         background: inherit;
       }
     }
-    &:hover {
+    &:hover .tablature{
       background: azure;
       cursor: pointer;
+      border: 1px solid;
       .lyrics input[type='text'] {
         background: inherit;
       }
     }
-    .lyrics {
-      margin-left: 25px;
-      input[type='text'] {
-        width: 100%;
+    .tablature {
+      display: inline-block;
+      border: 1px solid transparent;
+      padding: 0 10px 5px;
+      ul.chord {
+        min-width: 11px;
+        .chord-name { max-width: 11px; }
+        li { text-align: center; }
+      }
+      .lyrics {
+        margin-left: 25px;
+        input[type='text'] {
+          width: 100%;
+        }
       }
     }
-    ul.chord {
-      min-width: 11px;
-      .chord-name { max-width: 11px; }
-      li { text-align: center; }
+    .actions {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 30px;
     }
   }
 }

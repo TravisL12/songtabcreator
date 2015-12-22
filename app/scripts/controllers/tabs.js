@@ -9,7 +9,7 @@ angular.module('songtabcreatorApp')
     $scope.Chords = Chords;
 
     // This is a constant variable that defines how many columns the tablature will have
-    $scope.columnCount = 110;
+    $scope.columnCount = 100;
 
     // This object defines what notes are on which tablature line. You'll see that it is an array of objects.
     // Using an array allows ng-repeat to just iterate through each of the objects and draw them as they exist.
@@ -17,6 +17,10 @@ angular.module('songtabcreatorApp')
     $scope.tabRows = [
       { cells: {}, lyrics: 'Lyrics go here!' }
     ];
+
+    $scope.clearRow = function() {
+      $scope.tabRows[this.$index].cells = {};
+    };
 
     // To determine which tablature row we are currently editing, I use the variable $scope.editRow
     // to define the currently editable row. I made this a function so that we just have to worry about 
@@ -104,6 +108,15 @@ angular.module('songtabcreatorApp')
     // Basically, we check the value entered and if we find a match we update the whole chord array
     $scope.lookupChord = function() {
       // Capitalize the first letter of the chord
+      if ($scope.editRow.cells['chords-'+this.column] === '') {
+        $scope.editRow.cells['e-'+this.column] = '';
+        $scope.editRow.cells['b-'+this.column] = '';
+        $scope.editRow.cells['g-'+this.column] = '';
+        $scope.editRow.cells['d-'+this.column] = '';
+        $scope.editRow.cells['a-'+this.column] = '';
+        $scope.editRow.cells['E-'+this.column] = '';
+        return;
+      }
       $scope.editRow.cells['chords-'+this.column] = $scope.editRow.cells['chords-'+this.column][0].toUpperCase() + $scope.editRow.cells['chords-'+this.column].slice(1);
       var matchedChord = Chords[$scope.editRow.cells['chords-'+this.column]];
       if (matchedChord !== undefined) {

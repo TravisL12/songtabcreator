@@ -4,7 +4,7 @@ angular.module('songtabcreatorApp')
   .controller('TabCtrl', function ($scope, Chords) {
 
     // Import the Chord library from /app/scripts/services/chords.js
-    // You'll see that I load the "Chords" service above where I define the .controller (line 11)
+    // You'll see that I load the "Chords" service above where I define the .controller (line 4)
     // this sort of loading is called Dependency injection
     $scope.Chords = Chords;
 
@@ -117,7 +117,7 @@ angular.module('songtabcreatorApp')
     };
 
     // This is just a hacky way of creating an array of value num
-    // example: num = 10  =>  [1,2,3,4,5,6,7,8,9,10];
+    // example: num = 10  :=>  [1,2,3,4,5,6,7,8,9,10];
     $scope.buildArray = function(num) {
       var a = new Array(num);
       for(var i=1; i<=a.length; i++){ 

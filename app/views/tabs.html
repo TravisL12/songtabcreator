@@ -1,4 +1,5 @@
 <div class='tabs'>
+  <div><button class='btn btn-default' ng-click='addTabRow()'>Add Tab Row</button></div>
   <div class='editor'>
 
     <ul class='row-names'>
@@ -27,7 +28,6 @@
 
 
   <div class='tab-view'>
-    <div><button class='btn btn-default' ng-click='addTabRow()'>Add Tab Row</button></div>
     <div class='chord-columns' ng-repeat='row in tabRows' ng-click='activeEditRow()' ng-class='{ "active-row": editRow == row }'>
       <div class='tablature'>
         <ul class='row-names'>
@@ -53,6 +53,8 @@
       </div>
       <div class='actions'>
         <button class='btn btn-sm btn-default' ng-click='clearRow()'>Clear Row</button>
+        <button class='btn btn-sm btn-default' ng-click='shiftLeft()'>Shift Left</button>
+        <button class='btn btn-sm btn-default' ng-click='shiftRight()'>Shift Right</button>
       </div>
     </div>
   </div>

@@ -22,6 +22,29 @@ angular.module('songtabcreatorApp')
       $scope.tabRows[this.$index].cells = {};
     };
 
+    function shiftRow(cells, num) {
+      angular.forEach(cells, function(note, cell) {
+        var el   = cell.split('-');
+        var guitarString = el[0];
+        var index = parseInt(el[1]);
+
+        var validMove = num > -1 ? index < $scope.columnCount : index > 1;
+        var newCell = cells[guitarString + '-' + (index+num)];
+        if (validMove && newCell === undefined) {
+          cells[guitarString + '-' + (index+num)] = note;
+          delete cells[cell];
+        }
+      });
+    }
+
+    $scope.shiftLeft = function() {
+      shiftRow(this.row.cells, -1);
+    };
+
+    $scope.shiftRight = function() {
+      shiftRow(this.row.cells, 1);
+    };
+
     // To determine which tablature row we are currently editing, I use the variable $scope.editRow
     // to define the currently editable row. I made this a function so that we just have to worry about 
     // what index in $scope.tabRows we want to select and then the editable row gets updated.
@@ -74,7 +97,7 @@ angular.module('songtabcreatorApp')
 
     $scope.navigateTab = function(event) {
       var code = event.keyCode;
-      var el = event.target.name.split('-');
+      var el   = event.target.name.split('-');
       var guitarString = el[0];
       var index = parseInt(el[1]);
 

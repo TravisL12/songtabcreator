@@ -1,5 +1,23 @@
 <div class='tabs'>
-  <div><button class='btn btn-default' ng-click='addTabRow()'>Add Tab Row</button></div>
+
+  <div class='actions'>
+    <div class='row-adjust'>
+      <button class='btn btn-default' ng-click='addTabRow()'>Add Tab Row</button>
+      <button class='btn btn-default' ng-click='clearRow()'>Clear Row</button>
+      <button class='btn btn-default' ng-click='shiftLeft()'>Shift Left</button>
+      <button class='btn btn-default' ng-click='shiftRight()'>Shift Right</button>
+    </div>    
+    <div class='spacing'>
+      <div class='tab'>
+        <label>Tab Spacing</label><input class='form-control' type='text' ng-model='spacing.tab'>
+      </div>
+<!--  GET TO THIS LATER      <div class='measure'>
+        <label>Measure Spacing</label><input class='form-control' type='text' ng-model='spacing.measure'>
+      </div> -->
+    </div>
+
+  </div>
+
   <div class='editor'>
 
     <ul class='row-names'>
@@ -26,7 +44,6 @@
     </div>   
   </div>
 
-
   <div class='tab-view'>
     <div class='chord-columns' ng-repeat='row in tabRows' ng-click='activeEditRow()' ng-class='{ "active-row": editRow == row }'>
       <div class='tablature'>
@@ -49,12 +66,7 @@
           <li class='a-string'>{{ row.cells['a-'+column] || '-' }}</li>
           <li class='E-string'>{{ row.cells['E-'+column] || '-' }}</li>
         </ul>
-        <div class='lyrics'><input type='text' ng-model='row.lyrics'></div>
-      </div>
-      <div class='actions'>
-        <button class='btn btn-sm btn-default' ng-click='clearRow()'>Clear Row</button>
-        <button class='btn btn-sm btn-default' ng-click='shiftLeft()'>Shift Left</button>
-        <button class='btn btn-sm btn-default' ng-click='shiftRight()'>Shift Right</button>
+        <div class='lyrics'><input type='text' ng-model='row.lyrics' placeholder='Lyrics go here!'></div>
       </div>
     </div>
   </div>

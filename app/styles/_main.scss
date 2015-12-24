@@ -5,13 +5,39 @@ $border-color: #fff;
   margin: 0 auto;
   text-align: left;
 }
+
 .chord-columns, ul.chord {
   display: inline-block;
 }
+
 ul.row-names { 
   text-align: right;
   display: inline-block;
 }
+
+.actions {
+  width: 100%;
+  .row-adjust, .spacing {
+    display: inline-block;
+  }
+  button {
+    display: inline-block;
+    min-width: 102px;
+    margin-bottom: 5px;
+  }
+  .spacing {
+    .tab, .measure {
+      display: inline-block;
+    }
+    .tab { width: 90px; }
+    .measure { width: 120px; }
+    input {
+      padding-left: 5px;
+      width: 75px;
+    }
+  }
+}
+
 .editor {
   font-family: 'courier';
   border: 1px solid #ddd;
@@ -67,11 +93,10 @@ ul.row-names {
 
 .tab-view {
   font-family: 'courier';
-  text-align: left;
+  text-align: center;
+  margin-top: 15px;
   .chord-columns {
-    margin-bottom: 10px;
-    width: 100%;
-    box-sizing: border-box;
+    margin-bottom: 15px;
     &.active-row .tablature{
       background: azure;
       border: 1px solid;
@@ -101,15 +126,6 @@ ul.row-names {
         input[type='text'] {
           width: 100%;
         }
-      }
-    }
-    .actions {
-      display: inline-block;
-      vertical-align: top;
-      max-width: 110px;
-      button {
-        min-width: 102px;
-        margin-bottom: 5px;
       }
     }
   }

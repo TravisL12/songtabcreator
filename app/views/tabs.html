@@ -15,7 +15,9 @@
         <label>Measure Spacing</label><input class='form-control' type='text' ng-model='spacing.measure'>
       </div> -->
     </div>
-
+    <div class='print-text'>
+      <button class='btn btn-default' ng-click='saveToText()'>Save Tab!</button>
+    </div>
   </div>
 
   <div class='editor'>
@@ -31,7 +33,7 @@
     </ul>
 
     <div class='chord-columns' ng-keydown='navigateTab($event)'>
-      <ul class='chord' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(columnCount)'>
+      <ul class='chord' ng-class='{"tabspace-mod": spacing.tab > 1 && column % spacing.tab === 0}' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(columnCount)'>
         <li class='chord-name'><input ng-change='lookupChord()' type='text' name='{{"chords-"+column}}' ng-model='editRow.cells["chords-"+column]'></li>
         <li class='e-string'><input type='text' name='{{"e-"+column}}' ng-model='editRow.cells["e-"+column]'></li>
         <li class='b-string'><input type='text' name='{{"b-"+column}}' ng-model='editRow.cells["b-"+column]'></li>

@@ -1,4 +1,8 @@
 $border-color: #fff;
+$row-color: lightblue;
+$row-hover-color: pink;
+$chord-row-color: cornflowerblue;
+$active-cell-color: yellow;
 
 .tab-container {
   width: 1300px;
@@ -17,7 +21,7 @@ ul.row-names {
 
 .actions {
   width: 100%;
-  .row-adjust, .spacing {
+  .row-adjust, .spacing, .print-text {
     display: inline-block;
   }
   button {
@@ -53,15 +57,10 @@ ul.row-names {
     overflow-y: auto;
     white-space: nowrap;
     .chord {
-      li:first-child input[type='text'] {
-        background: cornflowerblue;
-      }
-      &:hover li input[type='text'] {
-        background: pink; 
-      }
-      &:last-child li {
-        border-right: 1px solid $border-color; 
-      }
+      &.tabspace-mod li input[type='text'] { background: lighten($row-color, 10%); }
+      li:first-child input[type='text'] { background: $chord-row-color; }
+      &:hover li input[type='text'] { background: $row-hover-color; }
+      &:last-child li { border-right: 1px solid $border-color; }
       li {
         border-top: 1px solid $border-color;
         border-left: 1px solid $border-color;
@@ -70,22 +69,14 @@ ul.row-names {
           color: #ccc;
           text-align: center;
         }
-        input[type='text'] {
-          background: lightblue;
-          &:focus {
-            background: yellow;
-          }
-        }
-        &:hover input[type='text'] {
-          background: yellow; 
-        }
-        &:last-child {
-          border-bottom: 1px solid $border-color;
-        }
+        &:hover input[type='text'] { background: $active-cell-color; }
+        &:last-child { border-bottom: 1px solid $border-color; }
       }
       input[type='text'] {
         width: 24px;
         border: none;
+        background: $row-color;
+        &:focus { background: $active-cell-color; }
       }
     }
   }

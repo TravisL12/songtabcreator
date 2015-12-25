@@ -1,85 +1,85 @@
 'use strict';
 
 angular.module('songtabcreatorApp')
-  .controller('TabCtrl', function ($scope, Chords) {
+.controller('TabCtrl', function ($scope, Chords) {
 
-    $scope.Chords = Chords;
-    $scope.columnCount = 110;
-    $scope.spacing = { 
-      tab: 2, measure: 4
-    };
-    $scope.tabRows = [
-      { cells: {}, lyrics: '' }
-    ];
+  $scope.Chords = Chords;
+  $scope.columnCount = 110;
+  $scope.spacing = { 
+    tab: 4, measure: 4
+  };
+  $scope.tabRows = [
+  { cells: {}, lyrics: '' }
+  ];
 
-    $scope.clearRow = function() {
-      $scope.editRow.cells = {};
-    };
+  $scope.clearRow = function() {
+    $scope.editRow.cells = {};
+  };
 
-    function shiftRow(num) {
-      angular.forEach($scope.editRow.cells, function(note, cell) {
-        var el   = cell.split('-');
-        var guitarString = el[0];
-        var index = parseInt(el[1]);
-
-        var validMove = num > -1 ? index < $scope.columnCount : index > 1;
-        var newCell = $scope.editRow.cells[guitarString + '-' + (index+num)];
-        if (validMove && newCell === undefined) {
-          $scope.editRow.cells[guitarString + '-' + (index+num)] = note;
-          delete $scope.editRow.cells[cell];
-        }
-      });
-    }
-
-    $scope.shiftLeft = function() {
-      shiftRow(-1);
-    };
-
-    $scope.shiftRight = function() {
-      shiftRow(1);
-    };
-
-    function updateEditRow(index) {
-      $scope.editRow = $scope.tabRows[index];      
-    }
-    updateEditRow(0);
-
-    $scope.activeEditRow = function() {
-      updateEditRow(this.$index);
-    };
-
-    $scope.addTabRow = function() {
-      $scope.tabRows.push({ cells: {}, lyrics: 'Lyrics go here!' });
-      updateEditRow($scope.tabRows.length - 1);
-    };
-
-    $scope.highlightView = function(color) {
-      var view = angular.element.find('.tab-view .active-row ul.chord')[this.column-1];
-      view.style.background = color;
-    };
-
-    var strings = ['chords','e','b','g','d','a','E'];
-    function downString(string) {
-      if (string !== 'E') {
-        return strings[strings.indexOf(string) + 1];
-      } else {
-        return string;
-      }
-    }
-
-    function upString(string) {
-      if (string !== 'chords') {
-        return strings[strings.indexOf(string) - 1];
-      } else {
-        return string;
-      }
-    }
-
-    $scope.navigateTab = function(event) {
-      var code = event.keyCode;
-      var el   = event.target.name.split('-');
+  function shiftRow(num) {
+    angular.forEach($scope.editRow.cells, function(note, cell) {
+      var el   = cell.split('-');
       var guitarString = el[0];
       var index = parseInt(el[1]);
+
+      var validMove = num > -1 ? index < $scope.columnCount : index > 1;
+      var newCell = $scope.editRow.cells[guitarString + '-' + (index+num)];
+      if (validMove && newCell === undefined) {
+        $scope.editRow.cells[guitarString + '-' + (index+num)] = note;
+        delete $scope.editRow.cells[cell];
+      }
+    });
+  }
+
+  $scope.shiftLeft = function() {
+    shiftRow(-1);
+  };
+
+  $scope.shiftRight = function() {
+    shiftRow(1);
+  };
+
+  function updateEditRow(index) {
+    $scope.editRow = $scope.tabRows[index];      
+  }
+  updateEditRow(0);
+
+  $scope.activeEditRow = function() {
+    updateEditRow(this.$index);
+  };
+
+  $scope.addTabRow = function() {
+    $scope.tabRows.push({ cells: {}, lyrics: '' });
+    updateEditRow($scope.tabRows.length - 1);
+  };
+
+  $scope.highlightView = function(color) {
+    var view = angular.element.find('.tab-view .active-row ul.chord')[this.column-1];
+    view.style.background = color;
+  };
+
+  var strings = ['chords','e','b','g','d','a','E'];
+  function downString(string) {
+    if (string !== 'E') {
+      return strings[strings.indexOf(string) + 1];
+    } else {
+      return string;
+    }
+  }
+
+  function upString(string) {
+    if (string !== 'chords') {
+      return strings[strings.indexOf(string) - 1];
+    } else {
+      return string;
+    }
+  }
+
+  $scope.navigateTab = function(event) {
+    var code = event.keyCode;
+    var el   = event.target.name.split('-');
+    var guitarString = el[0];
+    var index = parseInt(el[1]);
 
       // Navigate by keyCodes: tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
       var navKeyCodes = [9, 13, 37, 38, 39, 40];
@@ -130,7 +130,7 @@ angular.module('songtabcreatorApp')
     };
 
     $scope.lookupChord = function() {
-      
+
       // Delete column if no Chord name
       if ($scope.editRow.cells['chords-'+this.column] === '') {
         defineStringNotes.call(this);
@@ -152,6 +152,32 @@ angular.module('songtabcreatorApp')
         // If not Chord match delete column
         defineStringNotes.call(this);
       }
+    };
+
+    $scope.saveToText = function() {
+      var output = [];
+      angular.forEach($scope.tabRows, function(row) {
+        for (var j in strings) {
+          var stringOutput = [];
+          var blank = '-';
+          if (strings[j] === 'chords') {
+            blank = ' ';
+          }
+          for (var i = 1; i < $scope.columnCount; i++) {
+            var cell = row.cells[strings[j] + '-' + i] || blank;
+            stringOutput.push(cell);
+          }
+          output.push(stringOutput.join(''));
+        }
+      });
+      output = output.join('\r\n');
+
+      var a = document.createElement('a');
+      document.body.appendChild(a);
+      var blob = new Blob([output], {type: 'text/plain'});
+      a.href = window.URL.createObjectURL(blob);
+      a.download = 'fileName.txt';
+      a.click();
     };
 
     $scope.buildArray = function(num) {

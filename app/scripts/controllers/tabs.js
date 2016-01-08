@@ -169,6 +169,8 @@ angular.module('songtabcreatorApp')
           }
           output.push(stringOutput.join(''));
         }
+      //output lyrics to txt file
+      output.push(row.lyrics);  
       });
       output = output.join('\r\n');
 

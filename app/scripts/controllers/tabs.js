@@ -3,17 +3,25 @@
 angular.module('songtabcreatorApp')
 .controller('TabCtrl', function ($scope, Chords) {
 
-  $scope.Chords = Chords;
   $scope.columnCount = 110;
   $scope.spacing = { 
-    tab: 4, measure: 4
+    tab: 4,
+    measure: 4
   };
+
+  // Build a service to maintain the current tab you're working on 
+  // if you change to a separate page (i.e. Chord Dictionary) and back
+  // you lose your work
   $scope.tabRows = [
-  { cells: {}, lyrics: '' }
+    { cells: {}, lyrics: '' }
   ];
 
   $scope.clearRow = function() {
-    $scope.editRow.cells = {};
+    this.row.cells = {};
+  };
+
+  $scope.deleteRow = function(index) {
+    $scope.tabRows.splice(index,1);
   };
 
   function shiftRow(num) {
@@ -154,6 +162,7 @@ angular.module('songtabcreatorApp')
       }
     };
 
+    // This should be a separate service
     $scope.saveToText = function() {
       var output = [];
       angular.forEach($scope.tabRows, function(row) {

@@ -10,7 +10,7 @@ $active-cell-color: yellow;
   text-align: left;
 }
 
-.chord-columns, ul.chord {
+.tab-row-view, ul.chord {
   display: inline-block;
 }
 
@@ -21,7 +21,7 @@ ul.row-names {
 
 .actions {
   width: 100%;
-  .row-adjust, .spacing, .print-text {
+  .spacing, .print-text {
     display: inline-block;
   }
   button {
@@ -52,7 +52,7 @@ ul.row-names {
       margin-top: 3px;
     }
   }
-  .chord-columns {
+  .tab-row-view {
     width: 95%;
     overflow-y: auto;
     white-space: nowrap;
@@ -86,8 +86,23 @@ ul.row-names {
   font-family: 'courier';
   text-align: center;
   margin-top: 15px;
-  .chord-columns {
+  .add-row {
+    text-align: left;
+    margin: 0 0 5px 20px;
+  }
+  .tab-row-view {
+    position: relative;
     margin-bottom: 15px;
+    .row-edit-buttons {
+      position: absolute;
+      left: -7.5em;
+      top: 2em;
+      button {
+        display: block;
+        width: 95px;
+        margin-bottom: 8px;
+      }
+    }
     &.active-row .tablature{
       background: azure;
       border: 1px solid;

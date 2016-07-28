@@ -1,15 +1,9 @@
 <div class='tabs'>
 
   <div class='actions'>
-    <div class='row-adjust'>
-      <button class='btn btn-default' ng-click='addTabRow()'>Add Tab Row</button>
-      <button class='btn btn-default' ng-click='clearRow()'>Clear Row</button>
-      <button class='btn btn-default' ng-click='shiftLeft()'>Shift Left</button>
-      <button class='btn btn-default' ng-click='shiftRight()'>Shift Right</button>
-    </div>    
     <div class='spacing'>
       <div class='tab'>
-        <label>Tab Spacing</label><input class='form-control' type='text' ng-model='spacing.tab'>
+        <label>Note Spacing</label><input class='form-control' type='text' ng-model='spacing.tab'>
       </div>
 <!--  GET TO THIS LATER      <div class='measure'>
         <label>Measure Spacing</label><input class='form-control' type='text' ng-model='spacing.measure'>
@@ -32,7 +26,7 @@
       <li>E</li>
     </ul>
 
-    <div class='chord-columns' ng-keydown='navigateTab($event)'>
+    <div class='tab-row-view' ng-keydown='navigateTab($event)'>
       <ul class='chord' ng-class='{"tabspace-mod": spacing.tab > 1 && column % spacing.tab === 0}' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(columnCount)'>
         <li class='chord-name'><input ng-change='lookupChord()' type='text' name='{{"chords-"+column}}' ng-model='editRow.cells["chords-"+column]'></li>
         <li class='e-string'><input type='text' name='{{"e-"+column}}' ng-model='editRow.cells["e-"+column]'></li>
@@ -47,7 +41,13 @@
   </div>
 
   <div class='tab-view'>
-    <div class='chord-columns' ng-repeat='row in tabRows' ng-click='activeEditRow()' ng-class='{ "active-row": editRow == row }'>
+    <div class='tab-row-view' ng-repeat='row in tabRows track by $index' ng-click='activeEditRow()' ng-class='{ "active-row": editRow == row }'>
+      <div class='row-edit-buttons'>
+        <button class='btn btn-xs btn-default' ng-click='shiftLeft()'>Shift Left</button>
+        <button class='btn btn-xs btn-default' ng-click='shiftRight()'>Shift Right</button>
+        <button class='btn btn-xs btn-default' ng-click='clearRow()'>Clear Row</button>
+        <button ng-hide='tabRows.length == 1' class='btn btn-xs btn-default' ng-click='deleteRow($index)'>Delete</button>
+      </div>
       <div class='tablature'>
         <ul class='row-names'>
           <li>&nbsp</li>
@@ -71,5 +71,6 @@
         <div class='lyrics'><input type='text' ng-model='row.lyrics' placeholder='Lyrics go here!'></div>
       </div>
     </div>
+    <div class='add-row'><button class='btn btn-default' ng-click='addTabRow()'>Add Row</button></div>
   </div>
 </div>

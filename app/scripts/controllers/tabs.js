@@ -4,7 +4,7 @@ angular.module('songtabcreatorApp')
 .controller('TabCtrl', function ($scope, Chords) {
 
   $scope.columnCount = 110;
-  $scope.spacing = { 
+  $scope.tabOptions = {
     tab: 4,
     measure: 4
   };
@@ -96,11 +96,11 @@ angular.module('songtabcreatorApp')
 
         // Tab or right arrow pressed move 1 box to the right
         if ((code === 9 || code === 39) && index < $scope.columnCount) {
-          angular.element.find('.editor input[name="' + guitarString + '-' + (index + parseInt($scope.spacing.tab)) + '"')[0].focus();
+          angular.element.find('.editor input[name="' + guitarString + '-' + (index + parseInt($scope.tabOptions.tab)) + '"')[0].focus();
         }
         // Shift-Tab or left arrow pressed move 1 box to left
         if (((event.shiftKey && code === 9) || code === 37) && index > 1) {
-          angular.element.find('.editor input[name="' + guitarString + '-' + (index - parseInt($scope.spacing.tab)) + '"')[0].focus();
+          angular.element.find('.editor input[name="' + guitarString + '-' + (index - parseInt($scope.tabOptions.tab)) + '"')[0].focus();
         }
         // Return or down arrow pressed move 1 box down
         if (code === 13 || code === 40) {

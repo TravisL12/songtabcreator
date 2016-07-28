@@ -3,10 +3,10 @@
   <div class='actions'>
     <div class='spacing'>
       <div class='tab'>
-        <label>Note Spacing</label><input class='form-control' type='text' ng-model='spacing.tab'>
+        <label>Note Spacing</label><input class='form-control' type='text' ng-model='tabOptions.tab'>
       </div>
 <!--  GET TO THIS LATER      <div class='measure'>
-        <label>Measure Spacing</label><input class='form-control' type='text' ng-model='spacing.measure'>
+        <label>Measure Spacing</label><input class='form-control' type='text' ng-model='tabOptions.measure'>
       </div> -->
     </div>
     <div class='print-text'>
@@ -27,7 +27,7 @@
     </ul>
 
     <div class='tab-row-view' ng-keydown='navigateTab($event)'>
-      <ul class='chord' ng-class='{"tabspace-mod": spacing.tab > 1 && column % spacing.tab === 0}' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(columnCount)'>
+      <ul class='chord' ng-class='{"tabspace-mod": tabOptions.tab > 1 && column % tabOptions.tab === 0}' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(columnCount)'>
         <li class='chord-name'><input ng-change='lookupChord()' type='text' name='{{"chords-"+column}}' ng-model='editRow.cells["chords-"+column]'></li>
         <li class='e-string'><input type='text' name='{{"e-"+column}}' ng-model='editRow.cells["e-"+column]'></li>
         <li class='b-string'><input type='text' name='{{"b-"+column}}' ng-model='editRow.cells["b-"+column]'></li>

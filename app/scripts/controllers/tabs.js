@@ -5,6 +5,7 @@ angular.module('songtabcreatorApp')
 
   $scope.columnCount = 110;
   $scope.tabOptions = {
+    title: 'My New Song',
     tab: 4,
     measure: 4
   };
@@ -187,7 +188,7 @@ angular.module('songtabcreatorApp')
       document.body.appendChild(a);
       var blob = new Blob([output], {type: 'text/plain'});
       a.href = window.URL.createObjectURL(blob);
-      a.download = 'fileName.txt';
+      a.download = $scope.tabOptions.title + '.txt';
       a.click();
     };
 

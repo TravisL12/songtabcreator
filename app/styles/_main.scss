@@ -21,7 +21,7 @@ ul.row-names {
 
 .actions {
   width: 100%;
-  .spacing, .print-text {
+  .options, .print-text {
     display: inline-block;
   }
   button {
@@ -29,15 +29,16 @@ ul.row-names {
     min-width: 102px;
     margin-bottom: 5px;
   }
-  .spacing {
+  .options {
     .tab, .measure {
       display: inline-block;
     }
     .tab { width: 90px; }
     .measure { width: 120px; }
+    .title { width: 400px; }
     input {
       padding-left: 5px;
-      width: 75px;
+      width: 100%;
     }
   }
 }

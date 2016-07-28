@@ -3,8 +3,8 @@
 angular.module('songtabcreatorApp')
 .controller('TabCtrl', function ($scope, Chords) {
 
-  $scope.columnCount = 110;
   $scope.tabOptions = {
+    columnCount: 110,
     title: 'My New Song',
     tab: 4,
     measure: 4
@@ -31,7 +31,7 @@ angular.module('songtabcreatorApp')
       var guitarString = el[0];
       var index = parseInt(el[1]);
 
-      var validMove = num > -1 ? index < $scope.columnCount : index > 1;
+      var validMove = num > -1 ? index < $scope.tabOptions.columnCount : index > 1;
       var newCell = $scope.editRow.cells[guitarString + '-' + (index+num)];
       if (validMove && newCell === undefined) {
         $scope.editRow.cells[guitarString + '-' + (index+num)] = note;
@@ -96,7 +96,7 @@ angular.module('songtabcreatorApp')
         event.preventDefault();
 
         // Tab or right arrow pressed move 1 box to the right
-        if ((code === 9 || code === 39) && index < $scope.columnCount) {
+        if ((code === 9 || code === 39) && index < $scope.tabOptions.columnCount) {
           angular.element.find('.editor input[name="' + guitarString + '-' + (index + parseInt($scope.tabOptions.tab)) + '"')[0].focus();
         }
         // Shift-Tab or left arrow pressed move 1 box to left
@@ -173,7 +173,7 @@ angular.module('songtabcreatorApp')
           if (strings[j] === 'chords') {
             blank = ' ';
           }
-          for (var i = 1; i < $scope.columnCount; i++) {
+          for (var i = 1; i < $scope.tabOptions.columnCount; i++) {
             var cell = row.cells[strings[j] + '-' + i] || blank;
             stringOutput.push(cell);
           }

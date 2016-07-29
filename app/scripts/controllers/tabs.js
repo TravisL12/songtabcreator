@@ -1,21 +1,10 @@
 'use strict';
 
 angular.module('songtabcreatorApp')
-.controller('TabCtrl', function ($scope, Chords) {
+.controller('TabCtrl', function ($scope, Chords, CurrentTab) {
 
-  $scope.tabOptions = {
-    columnCount: 110,
-    title: 'My New Song',
-    tab: 4,
-    measure: 4
-  };
-
-  // Build a service to maintain the current tab you're working on 
-  // if you change to a separate page (i.e. Chord Dictionary) and back
-  // you lose your work
-  $scope.tabRows = [
-    { cells: {}, lyrics: '' }
-  ];
+  $scope.tabOptions = CurrentTab.options;
+  $scope.tabRows    = CurrentTab.tablature;
 
   $scope.clearRow = function() {
     this.row.cells = {};
@@ -24,21 +13,6 @@ angular.module('songtabcreatorApp')
   $scope.deleteRow = function(index) {
     $scope.tabRows.splice(index,1);
   };
-
-  function shiftRow(num) {
-    angular.forEach($scope.editRow.cells, function(note, cell) {
-      var el   = cell.split('-');
-      var guitarString = el[0];
-      var index = parseInt(el[1]);
-
-      var validMove = num > -1 ? index < $scope.tabOptions.columnCount : index > 1;
-      var newCell = $scope.editRow.cells[guitarString + '-' + (index+num)];
-      if (validMove && newCell === undefined) {
-        $scope.editRow.cells[guitarString + '-' + (index+num)] = note;
-        delete $scope.editRow.cells[cell];
-      }
-    });
-  }
 
   $scope.shiftLeft = function() {
     shiftRow(-1);
@@ -67,6 +41,25 @@ angular.module('songtabcreatorApp')
     view.style.background = color;
   };
 
+  var capitalizeChordName = function() {
+    $scope.editRow.cells['chords-'+this.column] = $scope.editRow.cells['chords-'+this.column][0].toUpperCase() + $scope.editRow.cells['chords-'+this.column].slice(1);      
+  };
+
+  function shiftRow(num) {
+    angular.forEach($scope.editRow.cells, function(note, cell) {
+      var el   = cell.split('-');
+      var guitarString = el[0];
+      var index = parseInt(el[1]);
+
+      var validMove = num > -1 ? index < $scope.tabOptions.columnCount : index > 1;
+      var newCell = $scope.editRow.cells[guitarString + '-' + (index+num)];
+      if (validMove && newCell === undefined) {
+        $scope.editRow.cells[guitarString + '-' + (index+num)] = note;
+        delete $scope.editRow.cells[cell];
+      }
+    });
+  }
+
   var strings = ['chords','e','b','g','d','a','E'];
   function downString(string) {
     if (string !== 'E') {
@@ -90,9 +83,9 @@ angular.module('songtabcreatorApp')
     var guitarString = el[0];
     var index = parseInt(el[1]);
 
-      // Navigate by keyCodes: tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
-      var navKeyCodes = [9, 13, 37, 38, 39, 40];
-      if (navKeyCodes.indexOf(code) !== -1) {
+    // Navigate by keyCodes: tab (9), return (13), arrows: left(37), up(38), right(39), down(40)
+    var navKeyCodes = [9, 13, 37, 38, 39, 40];
+    if (navKeyCodes.indexOf(code) !== -1) {
         event.preventDefault();
 
         // Tab or right arrow pressed move 1 box to the right
@@ -112,91 +105,86 @@ angular.module('songtabcreatorApp')
         if ((event.shiftKey && code === 13) || code === 38) {
           angular.element.find('.editor input[name="' + upString(guitarString) + '-' + index + '"')[0].focus();
         }
-
       }
-    };
+  };
 
-    var capitalizeChordName = function() {
-      $scope.editRow.cells['chords-'+this.column] = $scope.editRow.cells['chords-'+this.column][0].toUpperCase() + $scope.editRow.cells['chords-'+this.column].slice(1);      
-    };
+  var defineStringNotes = function(stringNotes) {
+    if (stringNotes) {
+      $scope.editRow.cells['e-'+this.column] = stringNotes[5];
+      $scope.editRow.cells['b-'+this.column] = stringNotes[4];
+      $scope.editRow.cells['g-'+this.column] = stringNotes[3];
+      $scope.editRow.cells['d-'+this.column] = stringNotes[2];
+      $scope.editRow.cells['a-'+this.column] = stringNotes[1];
+      $scope.editRow.cells['E-'+this.column] = stringNotes[0];
+    } else {
+      $scope.editRow.cells['e-'+this.column] = '';
+      $scope.editRow.cells['b-'+this.column] = '';
+      $scope.editRow.cells['g-'+this.column] = '';
+      $scope.editRow.cells['d-'+this.column] = '';
+      $scope.editRow.cells['a-'+this.column] = '';
+      $scope.editRow.cells['E-'+this.column] = '';
+    }
+  };
 
-    var defineStringNotes = function(stringNotes) {
-      if (stringNotes) {
-        $scope.editRow.cells['e-'+this.column] = stringNotes[5];
-        $scope.editRow.cells['b-'+this.column] = stringNotes[4];
-        $scope.editRow.cells['g-'+this.column] = stringNotes[3];
-        $scope.editRow.cells['d-'+this.column] = stringNotes[2];
-        $scope.editRow.cells['a-'+this.column] = stringNotes[1];
-        $scope.editRow.cells['E-'+this.column] = stringNotes[0];
-      } else {
-        $scope.editRow.cells['e-'+this.column] = '';
-        $scope.editRow.cells['b-'+this.column] = '';
-        $scope.editRow.cells['g-'+this.column] = '';
-        $scope.editRow.cells['d-'+this.column] = '';
-        $scope.editRow.cells['a-'+this.column] = '';
-        $scope.editRow.cells['E-'+this.column] = '';
-      }
-    };
+  $scope.lookupChord = function() {
 
-    $scope.lookupChord = function() {
+    // Delete column if no Chord name
+    if ($scope.editRow.cells['chords-'+this.column] === '') {
+      defineStringNotes.call(this);
+      return;
+    }
 
-      // Delete column if no Chord name
-      if ($scope.editRow.cells['chords-'+this.column] === '') {
-        defineStringNotes.call(this);
-        return;
-      }
+    // Don't allow number to start Chord name
+    if (!isNaN($scope.editRow.cells['chords-'+this.column])) {
+      $scope.editRow.cells['chords-'+this.column] = '';
+      return;
+    }
 
-      // Don't allow number to start Chord name
-      if (!isNaN($scope.editRow.cells['chords-'+this.column])) {
-        $scope.editRow.cells['chords-'+this.column] = '';
-        return;
-      }
+    capitalizeChordName.call(this);
 
-      capitalizeChordName.call(this);
+    var stringNotes = Chords[$scope.editRow.cells['chords-'+this.column]];
+    if (stringNotes !== undefined) {
+      defineStringNotes.call(this, stringNotes);
+    } else {
+      // If not Chord match delete column
+      defineStringNotes.call(this);
+    }
+  };
 
-      var stringNotes = Chords[$scope.editRow.cells['chords-'+this.column]];
-      if (stringNotes !== undefined) {
-        defineStringNotes.call(this, stringNotes);
-      } else {
-        // If not Chord match delete column
-        defineStringNotes.call(this);
-      }
-    };
-
-    // This should be a separate service
-    $scope.saveToText = function() {
-      var output = [];
-      angular.forEach($scope.tabRows, function(row) {
-        for (var j in strings) {
-          var stringOutput = [];
-          var blank = '-';
-          if (strings[j] === 'chords') {
-            blank = ' ';
-          }
-          for (var i = 1; i < $scope.tabOptions.columnCount; i++) {
-            var cell = row.cells[strings[j] + '-' + i] || blank;
-            stringOutput.push(cell);
-          }
-          output.push(stringOutput.join(''));
+  // This should be a separate service
+  $scope.saveToText = function() {
+    var output = [];
+    angular.forEach($scope.tabRows, function(row) {
+      for (var j in strings) {
+        var stringOutput = [];
+        var blank = '-';
+        if (strings[j] === 'chords') {
+          blank = ' ';
         }
-      //output lyrics to txt file
-      output.push(row.lyrics);  
-      });
-      output = output.join('\r\n');
-
-      var a = document.createElement('a');
-      document.body.appendChild(a);
-      var blob = new Blob([output], {type: 'text/plain'});
-      a.href = window.URL.createObjectURL(blob);
-      a.download = $scope.tabOptions.title + '.txt';
-      a.click();
-    };
-
-    $scope.buildArray = function(num) {
-      var a = new Array(num);
-      for(var i=1; i<=a.length; i++){ 
-        a[i-1] = i;
+        for (var i = 1; i < $scope.tabOptions.columnCount; i++) {
+          var cell = row.cells[strings[j] + '-' + i] || blank;
+          stringOutput.push(cell);
+        }
+        output.push(stringOutput.join(''));
       }
-      return a;
-    };
-  });
+    //output lyrics to txt file
+    output.push(row.lyrics);  
+    });
+    output = output.join('\r\n');
+
+    var a = document.createElement('a');
+    document.body.appendChild(a);
+    var blob = new Blob([output], {type: 'text/plain'});
+    a.href = window.URL.createObjectURL(blob);
+    a.download = $scope.tabOptions.title + '.txt';
+    a.click();
+  };
+
+  $scope.buildArray = function(num) {
+    var a = new Array(num);
+    for(var i=1; i<=a.length; i++){ 
+      a[i-1] = i;
+    }
+    return a;
+  };
+});

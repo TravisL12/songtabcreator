@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('songtabcreatorApp')
-.factory('Chords', function () {
-  var ChordLibrary = {
+angular.module('songtabcreatorApp').factory('ChordDictionary', function () {
+
+  return {
     '|'      : ['|','|','|','|','|','|'],
     'A'      : ['X','0','2','2','2','0'],
     'A6'     : ['0','0','2','2','2','2'],
@@ -131,5 +131,4 @@ angular.module('songtabcreatorApp')
     'Gsus'   : ['X','X','0','0','1','3']
   };
 
-  return ChordLibrary;
 });

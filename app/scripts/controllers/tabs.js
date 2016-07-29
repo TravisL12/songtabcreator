@@ -1,10 +1,9 @@
 'use strict';
 
-angular.module('songtabcreatorApp')
-.controller('TabCtrl', function ($scope, Chords, CurrentTab, PrintTab) {
+angular.module('songtabcreatorApp').controller('TabCtrl', function ($scope, ChordDictionary, CurrentTab, PrintTab) {
 
   $scope.tabOptions = CurrentTab.options;
-  $scope.tabRows = CurrentTab.tablature;
+  $scope.tabRows    = CurrentTab.tablature;
   $scope.saveToText = PrintTab;
   var strings = ['chords','e','b','g','d','a','E'];
 
@@ -135,7 +134,7 @@ angular.module('songtabcreatorApp')
 
     capitalizeChordName.call(this);
 
-    var stringNotes = Chords[$scope.editRow.cells['chords-'+this.column]];
+    var stringNotes = ChordDictionary[$scope.editRow.cells['chords-'+this.column]];
     if (stringNotes !== undefined) {
       defineStringNotes.call(this, stringNotes);
     } else {

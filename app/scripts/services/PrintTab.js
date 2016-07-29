@@ -7,14 +7,12 @@ angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab) {
     return function () {
         var output = [];
         angular.forEach(CurrentTab.tablature, function(row) {
-            for (var j in strings) {
-                var stringOutput = [];
-                var blank = '-';
-                if (strings[j] === 'chords') {
-                    blank = ' ';
-                }
-                for (var i = 1; i < CurrentTab.options.columnCount; i++) {
-                    var cell = row.cells[strings[j] + '-' + i] || blank;
+            for (var i in strings) {
+                var stringOutput = [],
+                    blank = strings[i] === 'chords' ? ' ' : '-';
+
+                for (var j = 1; j < CurrentTab.options.columnCount; j++) {
+                    var cell = row.cells[strings[i] + '-' + j] || blank;
                     stringOutput.push(cell);
                 }
                 output.push(stringOutput.join(''));
@@ -23,11 +21,12 @@ angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab) {
         });
         output = output.join('\r\n');
 
-        var a = document.createElement('a');
-        document.body.appendChild(a);
-        var blob = new Blob([output], {type: 'text/plain'});
-        a.href = window.URL.createObjectURL(blob);
-        a.download = CurrentTab.options.title + '.txt';
-        a.click();
+        var downloadLink  = document.createElement('a');
+        var downloadBlob  = new Blob([output], {type: 'text/plain'});
+        downloadLink.href = window.URL.createObjectURL(downloadBlob);
+        downloadLink.download = CurrentTab.options.title + '.txt';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
     };
+
 });

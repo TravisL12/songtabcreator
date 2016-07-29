@@ -1,5 +1,4 @@
-<div class='tabs'>
-
+<div class='editor'>
   <div class='actions'>
     <div class='options'>
       <div class='title'>
@@ -19,8 +18,7 @@
     </div>
   </div>
 
-  <div class='editor'>
-
+  <div class='tab-row-view' ng-keydown='navigateTab($event)'>
     <ul class='row-names'>
       <li>Chord</li>
       <li>e</li>
@@ -31,51 +29,49 @@
       <li>E</li>
     </ul>
 
-    <div class='tab-row-view' ng-keydown='navigateTab($event)'>
-      <ul class='chord' ng-class='{"tabspace-mod": tabOptions.tab > 1 && column % tabOptions.tab === 0}' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(tabOptions.columnCount)'>
-        <li class='chord-name'><input ng-change='lookupChord()' type='text' name='{{"chords-"+column}}' ng-model='editRow.cells["chords-"+column]'></li>
-        <li class='e-string'><input type='text' name='{{"e-"+column}}' ng-model='editRow.cells["e-"+column]'></li>
-        <li class='b-string'><input type='text' name='{{"b-"+column}}' ng-model='editRow.cells["b-"+column]'></li>
-        <li class='g-string'><input type='text' name='{{"g-"+column}}' ng-model='editRow.cells["g-"+column]'></li>
-        <li class='d-string'><input type='text' name='{{"d-"+column}}' ng-model='editRow.cells["d-"+column]'></li>
-        <li class='a-string'><input type='text' name='{{"a-"+column}}' ng-model='editRow.cells["a-"+column]'></li>
-        <li class='E-string'><input type='text' name='{{"E-"+column}}' ng-model='editRow.cells["E-"+column]'></li>
-        <li class='column-index'>{{column}}</li>
-      </ul>
-    </div>   
+    <ul class='chord' ng-class='{"tabspace-mod": tabOptions.tab > 1 && column % tabOptions.tab === 0}' ng-mouseover='highlightView("lightblue")' ng-mouseleave='highlightView("none")' ng-repeat='column in buildArray(tabOptions.columnCount)'>
+      <li class='chord-name'><input ng-change='lookupChord()' type='text' name='{{"chords-"+column}}' ng-model='editRow.cells["chords-"+column]'></li>
+      <li class='e-string'><input type='text' name='{{"e-"+column}}' ng-model='editRow.cells["e-"+column]'></li>
+      <li class='b-string'><input type='text' name='{{"b-"+column}}' ng-model='editRow.cells["b-"+column]'></li>
+      <li class='g-string'><input type='text' name='{{"g-"+column}}' ng-model='editRow.cells["g-"+column]'></li>
+      <li class='d-string'><input type='text' name='{{"d-"+column}}' ng-model='editRow.cells["d-"+column]'></li>
+      <li class='a-string'><input type='text' name='{{"a-"+column}}' ng-model='editRow.cells["a-"+column]'></li>
+      <li class='E-string'><input type='text' name='{{"E-"+column}}' ng-model='editRow.cells["E-"+column]'></li>
+      <li class='column-index'>{{column}}</li>
+    </ul>
   </div>
+</div>
 
-  <div class='tab-view'>
-    <div class='tab-row-view' ng-repeat='row in tabRows track by $index' ng-click='activeEditRow()' ng-class='{ "active-row": editRow == row }'>
-      <div class='row-edit-buttons'>
-        <button class='btn btn-xs btn-default' ng-click='shiftLeft()'>Shift Left</button>
-        <button class='btn btn-xs btn-default' ng-click='shiftRight()'>Shift Right</button>
-        <button class='btn btn-xs btn-default' ng-click='clearRow()'>Clear Row</button>
-        <button ng-hide='tabRows.length == 1' class='btn btn-xs btn-default' ng-click='deleteRow($index)'>Delete</button>
-      </div>
-      <div class='tablature'>
-        <ul class='row-names'>
-          <li>&nbsp</li>
-          <li>e |</li>
-          <li>b |</li>
-          <li>g |</li>
-          <li>d |</li>
-          <li>a |</li>
-          <li>E |</li>
-          <!-- The </ul> tag is broken here on purpose because of dumb CSS things -->
-          </ul
-          ><ul class='chord' ng-repeat='column in buildArray(tabOptions.columnCount)'>
-          <li class='chord-name'>{{row.cells['chords-'+column] || '&nbsp'}}</li>
-          <li class='e-string'>{{ row.cells['e-'+column] || '-' }}</li>
-          <li class='b-string'>{{ row.cells['b-'+column] || '-' }}</li>
-          <li class='g-string'>{{ row.cells['g-'+column] || '-' }}</li>
-          <li class='d-string'>{{ row.cells['d-'+column] || '-' }}</li>
-          <li class='a-string'>{{ row.cells['a-'+column] || '-' }}</li>
-          <li class='E-string'>{{ row.cells['E-'+column] || '-' }}</li>
-        </ul>
-        <div class='lyrics'><input type='text' ng-model='row.lyrics' placeholder='Lyrics go here!'></div>
-      </div>
+<div class='tab-view'>
+  <div class='tab-row-view' ng-repeat='row in tabRows track by $index' ng-click='activeEditRow()' ng-class='{ "active-row": editRow == row }'>
+    <div class='row-edit-buttons'>
+      <button class='btn btn-xs btn-default' ng-click='shiftLeft()'>Shift Left</button>
+      <button class='btn btn-xs btn-default' ng-click='shiftRight()'>Shift Right</button>
+      <button class='btn btn-xs btn-default' ng-click='clearRow()'>Clear Row</button>
+      <button ng-hide='tabRows.length == 1' class='btn btn-xs btn-default' ng-click='deleteRow($index)'>Delete</button>
     </div>
-    <div class='add-row'><button class='btn btn-default' ng-click='addTabRow()'>Add Row</button></div>
+    <div class='tablature'>
+      <ul class='row-names'>
+        <li>&nbsp</li>
+        <li>e |</li>
+        <li>b |</li>
+        <li>g |</li>
+        <li>d |</li>
+        <li>a |</li>
+        <li>E |</li>
+        <!-- The </ul> tag is broken here on purpose because of dumb CSS things -->
+        </ul
+        ><ul class='chord' ng-repeat='column in buildArray(tabOptions.columnCount)'>
+        <li class='chord-name'>{{row.cells['chords-'+column] || '&nbsp'}}</li>
+        <li class='e-string'>{{ row.cells['e-'+column] || '-' }}</li>
+        <li class='b-string'>{{ row.cells['b-'+column] || '-' }}</li>
+        <li class='g-string'>{{ row.cells['g-'+column] || '-' }}</li>
+        <li class='d-string'>{{ row.cells['d-'+column] || '-' }}</li>
+        <li class='a-string'>{{ row.cells['a-'+column] || '-' }}</li>
+        <li class='E-string'>{{ row.cells['E-'+column] || '-' }}</li>
+      </ul>
+      <div class='lyrics'><input type='text' ng-model='row.lyrics' placeholder='Lyrics go here!'></div>
+    </div>
   </div>
+  <div class='add-row'><button class='btn btn-default' ng-click='addTabRow()'>Add Row</button></div>
 </div>

@@ -19,44 +19,44 @@ ul.row-names {
   display: inline-block;
 }
 
-.actions {
+.editor {
+  border-bottom: 1px solid #ddd;
   width: 100%;
-  .options, .print-text {
-    display: inline-block;
-  }
-  button {
-    display: inline-block;
-    min-width: 102px;
-    margin-bottom: 5px;
-  }
-  .options {
-    .tab, .measure, .title {
+  padding: 10px 10px 0;
+
+  .actions {
+    width: 100%;
+    .options, .print-text {
       display: inline-block;
     }
-    .tab { width: 90px; }
-    .measure { width: 120px; }
-    .title { width: 400px; }
-    input {
-      padding-left: 5px;
-      width: 100%;
+    button {
+      display: inline-block;
+      min-width: 102px;
+      margin-bottom: 5px;
+    }
+    .options {
+      .tab, .measure, .title {
+        display: inline-block;
+      }
+      .tab { width: 90px; }
+      .measure { width: 120px; }
+      .title { width: 400px; }
+      input {
+        padding-left: 5px;
+        width: 100%;
+      }
     }
   }
-}
 
-.editor {
-  font-family: 'courier';
-  border: 1px solid #ddd;
-  padding: 10px 10px 0;
-  ul.row-names { 
-    vertical-align: top;
-    li {
-      margin-top: 3px;
-    }
-  }
   .tab-row-view {
+    font-family: 'courier';
     width: 95%;
     overflow-y: auto;
     white-space: nowrap;
+    ul.row-names {
+      vertical-align: top;
+      li { margin-top: 3px; }
+    }
     .chord {
       &.tabspace-mod li input[type='text'] { background: lighten($row-color, 10%); }
       li:first-child input[type='text'] { background: $chord-row-color; }

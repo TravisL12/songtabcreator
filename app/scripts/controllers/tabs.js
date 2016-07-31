@@ -81,21 +81,28 @@ angular.module('songtabcreatorApp').controller('TabCtrl', function ($scope, Chor
         event.preventDefault();
 
         // Tab or right arrow pressed move 1 box to the right
-        if ((code === 9 || code === 39) && index < $scope.tabOptions.columnCount) {
-          angular.element.find('.editor input[name="' + guitarString + '-' + (index + parseInt($scope.tabOptions.tab)) + '"')[0].focus();
+        if (code === 9 && index < $scope.tabOptions.columnCount) {
+          angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index + parseInt($scope.tabOptions.tab)) + '"')[0].focus();
+        }
+
+        if (code === 39 && index < $scope.tabOptions.columnCount) {
+          angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index + 1) + '"')[0].focus();
         }
         // Shift-Tab or left arrow pressed move 1 box to left
-        if (((event.shiftKey && code === 9) || code === 37) && index > 1) {
-          angular.element.find('.editor input[name="' + guitarString + '-' + (index - parseInt($scope.tabOptions.tab)) + '"')[0].focus();
+        if ((event.shiftKey && code === 9) && index > 1) {
+          angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index - parseInt($scope.tabOptions.tab)) + '"')[0].focus();
+        }
+         // Shift-Tab or left arrow pressed move 1 box to left
+        if (code === 37 && index > 1) {
+          angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index - 1) + '"')[0].focus();
         }
         // Return or down arrow pressed move 1 box down
         if (code === 13 || code === 40) {
-          angular.element.find('.editor input[name="' + downString(guitarString) + '-' + index + '"')[0].focus();
+          angular.element.find('.tablature-editor input[name="' + downString(guitarString) + '-' + index + '"')[0].focus();
         }
-
         // Shift-Return or up arrow pressed move 1 box up
         if ((event.shiftKey && code === 13) || code === 38) {
-          angular.element.find('.editor input[name="' + upString(guitarString) + '-' + index + '"')[0].focus();
+          angular.element.find('.tablature-editor input[name="' + upString(guitarString) + '-' + index + '"')[0].focus();
         }
       }
   };

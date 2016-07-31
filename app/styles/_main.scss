@@ -19,7 +19,7 @@ ul.row-names {
   display: inline-block;
 }
 
-.editor {
+.tablature-editor {
   max-width: 1380px;
   padding: 10px 10px 0;
   margin: 0 auto;
@@ -28,8 +28,7 @@ ul.row-names {
     margin-left: 50px;
     margin-bottom: 10px;
     .options,
-    .print-text,
-    .add-row { display: inline-block; }
+    .print-text { display: inline-block; }
     button {
       display: inline-block;
       min-width: 102px;
@@ -88,61 +87,69 @@ ul.row-names {
   }
 }
 
-.tab-view {
-  font-family: 'courier';
-  text-align: center;
+.tablature-display {
   border-top: 1px solid #ddd;
   padding-top: 15px;
-  width: 100%;
-  height: 55vh;
-  overflow-y: auto;
-  .tab-row-view {
-    position: relative;
-    margin-bottom: 15px;
-    .row-edit-buttons {
+
+  .edit-buttons,
+  .tab-view {
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-block;
+  }
+  .edit-buttons {
+    vertical-align: top;
+    width: 10%;
+    button {
+      width: 95px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .tab-view {
+    font-family: 'courier';
+    overflow-y: auto;
+    width: 80%;
+    height: 55vh;
+    .tab-row-view {
       display: inline-block;
-      vertical-align: top;
-      button {
-        display: block;
-        width: 95px;
-        margin-bottom: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      &.active-row {
+        background: azure;
+        border: 1px solid;
+        .lyrics input[type='text'] {
+          background: inherit;
+        }
       }
-    }
-    &.active-row .tablature{
-      background: azure;
-      border: 1px solid;
-      .lyrics input[type='text'] {
-        background: inherit;
+      &:hover {
+        background: azure;
+        cursor: pointer;
+        border: 1px solid;
+        .lyrics input[type='text'] {
+          background: inherit;
+        }
       }
-    }
-    &:hover .tablature{
-      background: azure;
-      cursor: pointer;
-      border: 1px solid;
-      .lyrics input[type='text'] {
-        background: inherit;
-      }
-    }
-    .tablature {
-      display: inline-block;
-      border: 1px solid transparent;
-      padding: 0 10px 5px;
-      ul.chord {
-        min-width: 11px;
-        .chord-name { max-width: 11px; }
-        li { text-align: center; }
-      }
-      .lyrics {
-        margin-left: 25px;
-        input[type='text'] {
-          width: 100%;
-          letter-spacing: 2.5px;
+      .tablature {
+        display: inline-block;
+        border: 1px solid transparent;
+        padding: 0 10px 5px;
+        ul.chord {
+          min-width: 11px;
+          .chord-name { max-width: 11px; }
+          li { text-align: center; }
+        }
+        .lyrics {
+          margin-left: 25px;
+          input[type='text'] {
+            width: 100%;
+            letter-spacing: 2.5px;
+          }
         }
       }
     }
   }
 }
-
 .chord-dictionary {
   .display-chord {
     font-family: 'courier';

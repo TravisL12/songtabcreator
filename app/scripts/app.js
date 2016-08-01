@@ -16,7 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch'
-  ])
+  ]).constant('Strings', {strings: ['chords','e','b','g','d','a','E']})
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

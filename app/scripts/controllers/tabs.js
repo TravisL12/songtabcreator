@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('songtabcreatorApp').controller('TabCtrl', function ($scope, ChordDictionary, CurrentTab, PrintTab) {
+angular.module('songtabcreatorApp').controller('TabCtrl', function ($scope, ChordDictionary, CurrentTab, PrintTab, Strings) {
 
   $scope.tabOptions = CurrentTab.options;
   $scope.tabRows    = CurrentTab.tablature;
   $scope.saveToText = PrintTab;
-  var strings = ['chords','e','b','g','d','a','E'];
+  var strings = Strings.strings;
 
   $scope.clearRow = function() {
     this.row.cells = {};

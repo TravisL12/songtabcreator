@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab) {
+angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab, Strings) {
 
-    var strings = ['chords','e','b','g','d','a','E'];
+    var strings = Strings.strings;
 
     return function () {
         var output = [];

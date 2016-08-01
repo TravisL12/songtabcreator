@@ -80,19 +80,19 @@ angular.module('songtabcreatorApp').controller('TabCtrl', function ($scope, Chor
     if (navKeyCodes.indexOf(code) !== -1) {
         event.preventDefault();
 
-        // Tab or right arrow pressed move 1 box to the right
+        // Tab right
         if (code === 9 && index < $scope.tabOptions.columnCount) {
           angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index + parseInt($scope.tabOptions.tab)) + '"')[0].focus();
         }
-
+        // Left arrow
         if (code === 39 && index < $scope.tabOptions.columnCount) {
           angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index + 1) + '"')[0].focus();
         }
-        // Shift-Tab or left arrow pressed move 1 box to left
+        // Shift-Tab left
         if ((event.shiftKey && code === 9) && index > 1) {
           angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index - parseInt($scope.tabOptions.tab)) + '"')[0].focus();
         }
-         // Shift-Tab or left arrow pressed move 1 box to left
+         // Right arrow
         if (code === 37 && index > 1) {
           angular.element.find('.tablature-editor input[name="' + guitarString + '-' + (index - 1) + '"')[0].focus();
         }

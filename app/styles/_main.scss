@@ -3,6 +3,7 @@ $row-color: lightblue;
 $row-hover-color: pink;
 $chord-row-color: cornflowerblue;
 $active-cell-color: yellow;
+$active-row-color: azure;
 
 .tab-container {
   width: 100%;
@@ -114,21 +115,20 @@ ul.row-names {
     .tab-row-view {
       display: inline-block;
       margin-bottom: 15px;
-      border: 1px solid #ddd;
-      &.active-row {
-        background: azure;
-        border: 1px solid;
+      border: 1px solid #F9F9F9;
+      &:hover {
+        background: #F9F9F9;
+        cursor: pointer;
+        border-color: #F9F9F9;
         .lyrics input[type='text'] {
           background: inherit;
         }
       }
-      &:hover {
-        background: azure;
-        cursor: pointer;
+      &.active-row {
+        background: $active-row-color;
         border: 1px solid;
-        .lyrics input[type='text'] {
-          background: inherit;
-        }
+        .lyrics input[type='text'] { background: inherit; }
+        &:hover { background: $active-row-color; }
       }
       .tablature {
         display: inline-block;

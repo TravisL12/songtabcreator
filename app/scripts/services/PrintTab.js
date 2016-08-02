@@ -8,12 +8,24 @@ angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab, St
         var output = [];
         angular.forEach(CurrentTab.tablature, function(row) {
             for (var i in strings) {
-                var stringOutput = [],
-                    blank = strings[i] === 'chords' ? ' ' : '-';
+                var stringOutput = new Array(CurrentTab.options.columnCount);
+
+                // Set blank to ' ' if iterating the named chords row (first row)
+                var blank = i === 0 ? ' ' : '-';
 
                 for (var j = 1; j < CurrentTab.options.columnCount; j++) {
                     var cell = row.cells[strings[i] + '-' + j] || blank;
-                    stringOutput.push(cell);
+
+                    // Check that array index isn't already set
+                    if (stringOutput[j-1] === undefined) {
+                        var split = cell.toString().split('');
+
+                        // Iterate through muli length notes (i.e. 'Cm', '14', 'Bb7')
+                        for (var k in split) {
+                            stringOutput[j-1 + parseInt(k)] = split[k];
+                        }
+
+                    }
                 }
                 output.push(stringOutput.join(''));
             }

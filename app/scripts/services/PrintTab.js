@@ -29,7 +29,7 @@ angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab, St
                 }
                 output.push(stringOutput.join(''));
             }
-            output.push(row.lyrics);  
+            output.push(row.lyrics + '\n');
         });
         output = output.join('\r\n');
 

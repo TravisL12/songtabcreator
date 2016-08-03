@@ -4,8 +4,13 @@ angular.module('songtabcreatorApp').factory('PrintTab', function (CurrentTab, St
 
     var strings = Strings.strings;
 
+    function titleCenter () {
+        var spaces = parseInt((CurrentTab.options.columnCount - CurrentTab.options.title.length) / 2);
+        return new Array(spaces).join(' ');
+    }
+
     return function () {
-        var output = [];
+        var output = ['\n' + titleCenter() + CurrentTab.options.title + '\n\n'];
         angular.forEach(CurrentTab.tablature, function(row) {
             for (var i in strings) {
                 var stringOutput = new Array(CurrentTab.options.columnCount);
